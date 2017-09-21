@@ -1,0 +1,165 @@
+虚拟机开发：
+	1.VMware
+	2.oracle 开发的虚拟机
+	3.RedHat kvm jvm pvm 虚拟机
+	
+硬件虚拟化：基于真实存在的内存，硬盘和网络
+软件虚拟化：也叫做“容器技术”
+操作系统虚拟化：实际没有操作系统，轻量级虚拟化，工具主要是容器技术
+
+继续昨天内容
+	1.创建主机；
+	2.组网
+		2.1.80端口，443端口的区别，苹果使用443要求使用https；
+		2.2.邓白氏码申请（苹果开发APP需要申请），可以挣钱；
+		2.3.备案：服务器在什么地方就去什么地方去备案。可以看网站最下面。拿小米官网举例子
+				京ICP证  京ICP备  京公网安备 京网文（发表一些文章的，新闻稿之类的） 
+				可通过“站长工具”对网站的备案的可靠性进行检查。同时可以通过备案号看出他的使用时间。
+		2.4.EMO服务器（物联网）
+	3.补充
+		3.1.数据库
+			注意区分数据库和数据库管理软件MYsql
+		3.2.容器管理
+			https://my.oschina.net/taogang/blog/778136?utm_source=tuicool&utm_medium=referral
+			常用的容器集群平台的比较
+		
+开始
+	1.容器
+		1.1.安装/
+			yum -y install docker	//安装docker
+			systemctl start docker	//启动
+			docker version			//查看版本
+		补充：
+			C语言之父，Unix之父：丹尼斯·里奇  
+			Go语言之父：
+			docker用GO开发的语言
+		
+		1.2.文件系统
+			使用 git（英文：饭桶，无用之人），hub（集线器）
+			docker images
+			docker pull docker.io/ansible/centos7-ansible   //下载docker
+		补充：
+			容器的发明是为了更快捷使用
+		
+		1.3.使用
+			doucker images
+			docker run -it --name=c1 docker.io/ansible/centos7-ansible:latest /bin/bash
+			（必须有镜像，才会有容器）容器就仿佛一个虚拟机
+			
+			1.3.1.添加用户
+				useradd tom
+				grep tom /etc/passwd
+				docker ps
+				
+				docker help
+				docker attach c1
+		
+			使用了容器之后就可以使用微服务架构。网页专门一个服务器，数据库一个服务器。将不同功能分隔开
+			
+			可以在容器中安装网页相关软件
+			
+			使用which命令
+			先安装 yum -y install which
+			which httpd		//查找目录
+			/sbin/httpd -k start
+			
+			curl http://localhost 	//在命令行访问
+			
+			无服务器模式
+			
+			容器关闭：exit
+			容器打开：登录之后，然后docker ps查看有几个容器，然后docker attach 编号
+			容器删除：docker rm （小心删除，无法撤回）
+			容器关闭：docker stop (编号)
+			
+			
+		1.4.LAMP架构
+			1.4.1.安装
+			
+		yum -y install httpd mysql mariadb mariadb-server php php-mysqlphp（安装有先后顺序）
+				
+		systemctl start httpd;systemctl enable httpd;systemctl start mariadb
+		
+		systemctl status httpd
+		
+		systemctl status mariadb
+		
+		cd /var/www/html
+		
+		ls 
+		
+		vi index.php
+		
+		<?php		//探测服务器能不能支持php的网站
+		phpinfo();
+		?>
+		
+		curl http://localhost
+		
+		//查看能不能访问，通过公网IP//
+		
+		再新建一个 vi index.php
+		
+		<?php
+		$links=mysqp_connect("locakhost","root","ABCabc123");
+		if($links) echo "mariadb is ok";	//如果能出现，说明php能连接数据库
+		mysql_close();	
+		?>
+		
+		
+		
+		mysql		//连接mysql,即数据库管理工具
+		
+		mysqladmin -uroot password 'abc123'		//给数据库设置密码
+		
+		然后再连接mysql
+		
+		mysql -uroot -p
+		
+		然后输入密码，隐性输入密码
+		
+		最后登录数据库
+		
+		
+		然后下载论坛
+		
+		discuz! 和discourse (未来最好用这个，还可以在手机端用，但是需要用Ruby的环境)
+		
+		从网上找论坛源码http://www.discuz.net/forum-10-1.html
+		下载 UTF8版本  http://download.comsenz.com/DiscuzX/3.4/Discuz_X3.4_SC_UTF8.zip
+		
+		直接把文件下载到家目录下
+		
+		cd //到家目录
+		wget http://download.comsenz.com/DiscuzX/3.4/Discuz_X3.4_SC_UTF8.zip、
+		
+		下载后解压出来，unzip Discuz_X3.4_SC.UTF8.zip
+		ls
+		
+		cd upload
+		ls
+		cp -r * /var/www/html
+		
+		安装软件就是复制的过程
+		
+		此时论坛还没有和mysql结合
+		
+		此时打开链接就能看到了,但是没有用户权限
+		
+		然后进入 cd /var/www/html
+		ls
+		
+		chmod -R 777 config  //分配权限
+		chmod -R 777 data
+		chmod -R 777 uc_client
+		chmod -R 777 uc_server
+		
+		然后再打开论坛就可以看见了。其实实际这个过程就是往数据库中写数据的过程。我们下载后
+		其实就已经安装完了，但是数据库中什么都没有
+		
+		
+		
+		
+		
+		
+		
