@@ -1,0 +1,98 @@
+基本命令学习
+
+1.mkdir -p /a/b  	直接创建使用
+
+2.tree /a   		可视化的路径结构显示
+
+3.touch .123		创建隐藏文件		
+
+4.cat  				全部打印
+
+5.less				打印短的
+
+6.more				多的
+
+7.head				文件的前几行
+
+8.tail				文件的后几行	
+
+9.cat -n passwd | head -7 | tail -1		打印文件，只看第7行
+
+一、用户命令详解
+
+[root@iZwz99zfooa25sc2lifulgZ ~]# ll
+总用量 4
+-rw-r--r-- 1 root root    0 9月  25 14:36 abc.txt
+drwxr-xr-x 2 root root 4096 9月  21 17:21 yantai
+
+
+属主，属组
+
+1.设置用户和密码
+
+	useradd 用户名
+	passwd  用户名	
+
+2.wc -l /etc/passwd
+	最终显示有26个用户
+
+3.
+[root@iZwz99zfooa25sc2lifulgZ ~]# tail -2 /etc/shadow
+dockerroot:!!:17429::::::
+qiaoxu:!!:17430:0:99999:7:::
+
+使用密文加密，17430即从1970年至今的天数
+
+[root@iZwz99zfooa25sc2lifulgZ ~]# tail -2 /etc/shadow
+qiaoxu:!!:17430:0:99999:7:::
+owen:!!:17434:0:99999:7:::
+
+！！表示没有加密
+
+4.useradd 
+
+5.shall编程
+	
+	#！/bin/bash		//用bash进行解释给电脑
+	#print hello world
+	#tfc@2017.9.25@yd
+	
+	echo "hello world"
+	
+	#add useradd
+	useradd hmm
+	#
+	for i in 1..100
+	do
+		useradd eric$i
+	done
+	
+黑色的是普通文件，绿色的是可执行文件
+
+	
+	执行过程
+	[root@iZwz99zfooa25sc2lifulgZ ~]# for i in {1..10}
+	> do
+	> echo "hello world"
+	> done
+	hello world
+	hello world
+	hello world
+	hello world
+	hello world
+	hello world
+	hello world
+	hello world
+	hello world
+	hello world
+
+	chnod a+x yantai.sh
+
+
+
+
+
+
+
+
+
